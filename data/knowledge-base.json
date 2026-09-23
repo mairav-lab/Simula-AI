@@ -1,0 +1,857 @@
+{
+  "metadata": {
+    "name": "Simula AI - Base de Conhecimento",
+    "version": "2.0.0",
+    "purpose": "Base estruturada de processo, simulação e avaliação de atendimentos de retenção Nio Fibra.",
+    "language": "pt-BR",
+    "evaluation_model": "process_evidence_v2",
+    "evaluation_pillars": [
+      "abertura",
+      "sondagem",
+      "argumentacao",
+      "checkout"
+    ],
+    "source_documents": [
+      "GUIA - Guia Rápido de Retenção",
+      "Concorrência e Reparo",
+      "Consolidado de Processo - Ix Hero"
+    ]
+  },
+
+  "principios_gerais": {
+    "objetivo": "Avaliar como o operador conduziu o atendimento e sua aderência ao processo, e não apenas se o cliente foi retido.",
+
+    "fluxo": [
+      "Abertura",
+      "Sondagem",
+      "Identificação da causa raiz",
+      "Argumentação",
+      "Tratamento da objeção",
+      "Checkout"
+    ],
+
+    "regras": [
+      "Conhecer o cliente antes de argumentar.",
+      "Não considerar informação fornecida espontaneamente pelo cliente como pergunta realizada pelo operador.",
+      "Utilizar informações descobertas durante a sondagem.",
+      "Tratar a causa real do cancelamento.",
+      "Apresentar soluções coerentes com a necessidade identificada.",
+      "Apresentar alternativas uma por vez.",
+      "Escutar a reação do cliente antes de avançar para outra alternativa.",
+      "Não inventar valores, velocidades, benefícios, datas, prazos ou elegibilidades.",
+      "Não considerar retenção como único indicador de qualidade.",
+      "Avaliar somente comportamentos comprovados pela transcrição ou por dados sistêmicos fornecidos ao simulador."
+    ]
+  },
+
+  "modelo_avaliacao": {
+    "escala": {
+      "minimo": 0,
+      "maximo": 10
+    },
+
+    "pesos": {
+      "abertura": 0.25,
+      "sondagem": 0.25,
+      "argumentacao": 0.25,
+      "checkout": 0.25
+    },
+
+    "regra_evidencia": {
+      "principio": "Nenhum comportamento deve receber crédito sem evidência na transcrição ou no contexto sistêmico disponível.",
+      "status_permitidos": [
+        "realizado",
+        "parcial",
+        "nao_realizado",
+        "nao_aplicavel"
+      ],
+      "cliente_nao_conta_como_operador": true,
+      "inferir_comportamento_ausente": false
+    },
+
+    "regra_nota": {
+      "principio": "A nota deve ser consequência dos comportamentos comprovados e não uma impressão geral da IA.",
+      "proibido": [
+        "Dar nota alta por cordialidade quando requisitos obrigatórios não foram executados.",
+        "Dar crédito por informação que somente o cliente mencionou.",
+        "Presumir consulta sistêmica que não esteja disponível.",
+        "Presumir tratamento de objeção inexistente.",
+        "Presumir retenção porque houve encerramento cordial."
+      ]
+    }
+  },
+
+  "pilares": {
+    "abertura": {
+      "nome": "Abertura",
+      "peso": 0.25,
+      "nota_maxima": 10,
+
+      "objetivo": "Iniciar o atendimento de forma profissional e cumprir a identificação obrigatória definida para a simulação.",
+
+      "itens": {
+        "acolhimento": {
+          "descricao": "Realizou saudação e iniciou o atendimento de forma adequada.",
+          "pontos": 2,
+          "obrigatorio": true,
+          "fonte_evidencia": "fala_operador"
+        },
+
+        "solicitou_nome": {
+          "descricao": "Solicitou ou confirmou verbalmente o nome do cliente.",
+          "pontos": 2,
+          "obrigatorio": true,
+          "fonte_evidencia": "fala_operador",
+
+          "aceitar_equivalentes": [
+            "Qual seu nome?",
+            "Pode me informar seu nome?",
+            "Me confirma seu nome?",
+            "Com quem eu falo?",
+            "Por gentileza, seu nome?"
+          ],
+
+          "nao_considerar": [
+            "Nome já exibido na tela.",
+            "Cliente informar o nome espontaneamente sem solicitação.",
+            "Operador simplesmente chamar o cliente pelo nome."
+          ]
+        },
+
+        "solicitou_cpf": {
+          "descricao": "Solicitou ou confirmou verbalmente o CPF do cliente.",
+          "pontos": 4,
+          "obrigatorio": true,
+          "fonte_evidencia": "fala_operador",
+
+          "aceitar_equivalentes": [
+            "Pode me informar seu CPF?",
+            "Me confirma seu CPF?",
+            "Qual seu CPF?",
+            "Preciso confirmar seu CPF.",
+            "Pode confirmar os números do seu CPF?"
+          ],
+
+          "nao_considerar": [
+            "CPF disponível no cenário.",
+            "CPF presumido pelo sistema.",
+            "Cliente informar espontaneamente sem solicitação."
+          ]
+        },
+
+        "conducao_inicial": {
+          "descricao": "Conduziu a abertura de maneira clara, respeitosa e profissional.",
+          "pontos": 2,
+          "obrigatorio": false,
+          "fonte_evidencia": "fala_operador"
+        }
+      },
+
+      "ip": {
+        "nome": "Identificação Positiva",
+        "regra_simulador": "Para fins desta avaliação de retenção, a IP é considerada completa quando o operador solicita ou confirma nome e CPF.",
+
+        "requisitos": [
+          "solicitou_nome",
+          "solicitou_cpf"
+        ],
+
+        "completa_quando": "Todos os requisitos obrigatórios de identificação forem comprovados na fala do operador.",
+
+        "incompleta_quando": "Nome ou CPF não tiver sido solicitado ou confirmado pelo operador."
+      },
+
+      "travas": {
+        "sem_nome_e_sem_cpf": {
+          "nota_maxima": 4
+        },
+
+        "nome_sem_cpf": {
+          "nota_maxima": 6
+        },
+
+        "cpf_sem_nome": {
+          "nota_maxima": 8
+        }
+      }
+    },
+
+    "sondagem": {
+      "nome": "Sondagem",
+      "peso": 0.25,
+      "nota_maxima": 10,
+
+      "objetivo": "Compreender o motivo real do cancelamento, a necessidade do cliente e os elementos necessários para definir o tratamento adequado.",
+
+      "regras": [
+        "Perguntas devem ser feitas antes da argumentação quando necessárias para compreender a causa.",
+        "Informações espontaneamente fornecidas pelo cliente podem ser utilizadas, mas não contam como pergunta realizada pelo operador.",
+        "Não é necessário repetir uma pergunta cuja resposta já tenha sido claramente fornecida pelo cliente.",
+        "A sondagem deve ser adaptada ao cenário.",
+        "Perguntas irrelevantes não geram pontuação."
+      ],
+
+      "geral": {
+        "itens": [
+          {
+            "id": "motivo_cancelamento",
+            "descricao": "Identificou o motivo principal do cancelamento.",
+            "obrigatorio": true
+          },
+          {
+            "id": "causa_raiz",
+            "descricao": "Aprofundou a conversa até compreender a causa real.",
+            "obrigatorio": true
+          },
+          {
+            "id": "necessidade_cliente",
+            "descricao": "Investigou necessidade, expectativa ou prioridade do cliente.",
+            "obrigatorio": true
+          },
+          {
+            "id": "utilizou_respostas",
+            "descricao": "Utilizou as respostas do cliente para conduzir as perguntas seguintes.",
+            "obrigatorio": true
+          }
+        ]
+      },
+
+      "por_cenario": {
+        "concorrencia": {
+          "itens": [
+            "Identificar a empresa concorrente.",
+            "Perguntar o valor oferecido.",
+            "Perguntar a velocidade oferecida.",
+            "Investigar benefícios oferecidos.",
+            "Investigar conteúdos digitais quando aplicável.",
+            "Entender o principal motivo da troca.",
+            "Entender o que é mais importante para o cliente.",
+            "Entender como o cliente utiliza a internet quando relevante.",
+            "Investigar duração de preço promocional quando aplicável."
+          ]
+        },
+
+        "concorrente_ja_instalado": {
+          "itens": [
+            "Confirmar que a fibra concorrente já foi instalada.",
+            "Perguntar quando ocorreu a instalação.",
+            "Identificar se a instalação ocorreu dentro do contexto de até 7 dias quando aplicável.",
+            "Investigar o principal motivo da troca.",
+            "Identificar a empresa concorrente quando ainda não informado.",
+            "Investigar valor quando relevante.",
+            "Investigar velocidade quando relevante.",
+            "Investigar benefícios quando relevante.",
+            "Compreender o que levou o cliente a efetivamente instalar a concorrência."
+          ],
+
+          "criticos": [
+            "data_instalacao",
+            "motivo_troca"
+          ]
+        },
+
+        "preco": {
+          "itens": [
+            "Identificar o valor que está causando insatisfação.",
+            "Investigar quanto o cliente considera adequado.",
+            "Perguntar valor da concorrência quando houver concorrência.",
+            "Investigar duração da condição concorrente quando aplicável.",
+            "Compreender se preço é realmente a causa principal."
+          ]
+        },
+
+        "velocidade": {
+          "itens": [
+            "Identificar a velocidade desejada.",
+            "Entender a velocidade atual.",
+            "Perguntar qual velocidade foi oferecida pela concorrência quando aplicável.",
+            "Entender como o cliente utiliza a internet.",
+            "Investigar quantidade ou tipo de dispositivos quando relevante.",
+            "Compreender se existe problema de desempenho ou apenas comparação comercial."
+          ]
+        },
+
+        "beneficios": {
+          "itens": [
+            "Perguntar quais benefícios o cliente deseja.",
+            "Identificar quais benefícios foram oferecidos pela concorrência quando aplicável.",
+            "Entender quais benefícios realmente possuem valor para o cliente.",
+            "Evitar presumir interesse em streaming ou outros serviços."
+          ]
+        },
+
+        "reparo": {
+          "itens": [
+            "Identificar o sintoma apresentado.",
+            "Identificar há quanto tempo o problema ocorre.",
+            "Verificar se existe queda total ou lentidão.",
+            "Investigar se o problema é contínuo ou intermitente.",
+            "Investigar Wi-Fi quando aplicável.",
+            "Investigar conexão por cabo quando aplicável.",
+            "Investigar horários específicos quando aplicável.",
+            "Considerar histórico de reparo quando fornecido pelo cenário.",
+            "Verificar reparo já aberto quando fornecido pelo cenário.",
+            "Verificar status ou agendamento quando aplicável."
+          ]
+        },
+
+        "mudanca_endereco": {
+          "itens": [
+            "Confirmar que a solicitação está relacionada à mudança.",
+            "Investigar o novo endereço conforme informações disponíveis.",
+            "Entender se a mudança envolve alteração de rua, número, complemento ou região.",
+            "Verificar informações necessárias ao processo conforme o cenário.",
+            "Não prometer viabilidade sem consulta sistêmica."
+          ]
+        }
+      },
+
+      "travas": {
+        "nenhuma_sondagem": {
+          "nota_maxima": 2
+        },
+
+        "sondagem_superficial": {
+          "nota_maxima": 5
+        },
+
+        "argumentou_sem_entender_causa": {
+          "nota_maxima": 4
+        },
+
+        "induziu_cancelamento_sem_sondagem": {
+          "nota_maxima": 1
+        }
+      }
+    },
+
+    "argumentacao": {
+      "nome": "Argumentação",
+      "peso": 0.25,
+      "nota_maxima": 10,
+
+      "objetivo": "Tratar a causa identificada utilizando solução coerente, comunicação consultiva, oferta aplicável e tratamento adequado das objeções.",
+
+      "componentes": {
+        "escuta_ativa": {
+          "descricao": "Demonstrou compreender as informações apresentadas pelo cliente."
+        },
+
+        "empatia": {
+          "descricao": "Reconheceu de forma genuína a situação ou impacto apresentado pelo cliente."
+        },
+
+        "tratamento_causa": {
+          "descricao": "Direcionou a solução para a causa raiz identificada."
+        },
+
+        "personalizacao": {
+          "descricao": "Relacionou a argumentação às informações obtidas na sondagem."
+        },
+
+        "solucao": {
+          "descricao": "Apresentou solução ou alternativa compatível com o cenário."
+        },
+
+        "oferta": {
+          "descricao": "Quando aplicável, apresentou oferta disponível de forma clara e transparente."
+        },
+
+        "tratamento_objecao": {
+          "descricao": "Escutou a reação do cliente e respondeu à objeção apresentada."
+        },
+
+        "persistencia": {
+          "descricao": "Quando apropriado, trabalhou nova alternativa após uma recusa sem pressionar agressivamente."
+        },
+
+        "conformidade": {
+          "descricao": "Não inventou informações, benefícios, valores, prazos ou ações sistêmicas."
+        }
+      },
+
+      "regras": [
+        "A argumentação deve estar ligada à causa identificada.",
+        "Não considerar argumento genérico como tratamento completo.",
+        "Oferta não substitui sondagem.",
+        "Desconto não substitui solução técnica.",
+        "Uma alternativa deve ser apresentada por vez.",
+        "O retorno do cliente deve ser ouvido antes da próxima alternativa.",
+        "O operador pode ter boa argumentação mesmo que o cliente não seja retido.",
+        "A retenção final não determina sozinha a nota."
+      ],
+
+      "por_cenario": {
+        "concorrencia_preco": {
+          "esperado": [
+            "Validar o interesse do cliente em economia.",
+            "Avaliar a proposta concorrente com base nas informações obtidas.",
+            "Comparar custo-benefício de forma profissional.",
+            "Verificar alternativa com valor e benefícios próximos quando disponível.",
+            "Explicar previsibilidade de preço quando houver condição documentada.",
+            "Não inventar aumento futuro da concorrência."
+          ]
+        },
+
+        "concorrencia_velocidade": {
+          "esperado": [
+            "Relacionar velocidade à necessidade real do cliente.",
+            "Avaliar possibilidade de upgrade quando disponível.",
+            "Comparar solução de forma profissional.",
+            "Evitar afirmar que determinada velocidade é suficiente sem compreender o uso."
+          ]
+        },
+
+        "concorrencia_beneficios": {
+          "esperado": [
+            "Relacionar benefícios ao interesse real do cliente.",
+            "Apresentar somente benefícios disponíveis.",
+            "Destacar diferenciais relevantes.",
+            "Evitar oferecer benefícios sem relação com a necessidade."
+          ]
+        },
+
+        "concorrente_ja_instalado": {
+          "esperado": [
+            "Confirmar o contexto da instalação antes de argumentar.",
+            "Verificar quando a instalação ocorreu.",
+            "Quando aplicável, explicar corretamente o contexto de desistência junto à concorrência.",
+            "Apresentar alternativa compatível com o motivo da troca.",
+            "Trabalhar custo-benefício quando houver dados.",
+            "Verificar eventual condição de última fatura somente quando aplicável."
+          ],
+
+          "proibido": [
+            "Tratar os 7 dias como automaticamente aplicáveis sem verificar o contexto.",
+            "Garantir isenção automaticamente.",
+            "Inventar condição da concorrência.",
+            "Encaminhar cancelamento sem tentativa adequada de compreensão e retenção."
+          ]
+        },
+
+        "reparo": {
+          "esperado": [
+            "Reconhecer o impacto do problema.",
+            "Priorizar solução técnica.",
+            "Apresentar encaminhamento de reparo quando aplicável.",
+            "Tratar contestação de período sem serviço quando aplicável.",
+            "Somente depois da garantia de encaminhamento técnico trabalhar benefício comercial de retenção."
+          ],
+
+          "proibido": [
+            "Usar desconto como solução principal para falha técnica.",
+            "Ignorar problema técnico e partir diretamente para oferta.",
+            "Prometer prazo não disponível.",
+            "Inventar agendamento.",
+            "Inventar visita técnica.",
+            "Inventar conclusão de reparo."
+          ]
+        },
+
+        "mudanca_endereco": {
+          "esperado": [
+            "Tratar a necessidade de mudança antes de tentar impedir o cancelamento.",
+            "Utilizar somente informações de viabilidade disponíveis.",
+            "Apresentar alternativas compatíveis com o processo e o cenário."
+          ],
+
+          "proibido": [
+            "Garantir viabilidade sem consulta.",
+            "Inventar disponibilidade de instalação.",
+            "Inventar agendamento."
+          ]
+        }
+      },
+
+      "persistencia": {
+        "regra": "A primeira recusa não exige encerramento imediato quando ainda existem alternativas coerentes e aplicáveis.",
+
+        "esperado": [
+          "Ouvir a recusa.",
+          "Compreender a objeção.",
+          "Responder à objeção.",
+          "Apresentar outra alternativa somente quando fizer sentido.",
+          "Manter abordagem consultiva."
+        ],
+
+        "proibido": [
+          "Pressionar agressivamente.",
+          "Repetir a mesma oferta sem tratar a objeção.",
+          "Apresentar várias ofertas simultaneamente.",
+          "Ignorar manifestação clara do cliente."
+        ]
+      },
+
+      "travas": {
+        "nenhuma_argumentacao": {
+          "nota_maxima": 2
+        },
+
+        "oferta_sem_sondagem": {
+          "nota_maxima": 4
+        },
+
+        "solucao_sem_relacao_com_causa": {
+          "nota_maxima": 4
+        },
+
+        "problema_tecnico_sem_tratamento_tecnico": {
+          "nota_maxima": 3
+        },
+
+        "induziu_cancelamento_sem_tentativa_retencao": {
+          "nota_maxima": 1
+        },
+
+        "inventou_condicao_critica": {
+          "nota_maxima": 2
+        }
+      }
+    },
+
+    "checkout": {
+      "nome": "Checkout",
+      "peso": 0.25,
+      "nota_maxima": 10,
+
+      "objetivo": "Finalizar o atendimento de acordo com o resultado real, confirmando condições e próximos passos de forma clara e transparente.",
+
+      "regra": "Os requisitos de checkout dependem do desfecho do atendimento.",
+
+      "desfechos": {
+        "retido_com_oferta": {
+          "itens": [
+            "Confirmar que o cliente aceitou a oferta.",
+            "Informar preço da nova condição quando disponível.",
+            "Informar velocidade quando aplicável.",
+            "Informar benefícios incluídos quando aplicável.",
+            "Informar data de início ou DOM quando aplicável.",
+            "Informar prazo de tratamentos adicionais quando houver.",
+            "Recapitular o que foi acordado.",
+            "Confirmar compreensão do cliente."
+          ]
+        },
+
+        "retido_sem_oferta": {
+          "itens": [
+            "Confirmar permanência do cliente.",
+            "Informar o tratamento realizado.",
+            "Informar prazo exato quando aplicável.",
+            "Recapitular próximos passos.",
+            "Confirmar compreensão do cliente."
+          ]
+        },
+
+        "nao_retido": {
+          "itens": [
+            "Confirmar que o cliente manteve a decisão de cancelar.",
+            "Informar até quando o serviço permanece ativo quando aplicável.",
+            "Informar prazo de cancelamento conforme processo.",
+            "Orientar recolha ou devolução do equipamento conforme processo.",
+            "Explicar cobrança proporcional quando aplicável.",
+            "Explicar eventual multa somente quando aplicável.",
+            "Recapitular próximos passos."
+          ]
+        }
+      },
+
+      "conformidade": {
+        "proibido": [
+          "Inventar protocolo.",
+          "Inventar conclusão sistêmica.",
+          "Dizer que cancelamento foi realizado sem evidência de execução.",
+          "Inventar data.",
+          "Inventar prazo.",
+          "Inventar multa.",
+          "Inventar valor.",
+          "Inventar agendamento.",
+          "Garantir resultado dependente de outro setor."
+        ]
+      },
+
+      "travas": {
+        "nenhum_checkout": {
+          "nota_maxima": 2
+        },
+
+        "checkout_incompleto": {
+          "nota_maxima": 5
+        },
+
+        "afirmou_acao_sistemica_nao_comprovada": {
+          "nota_maxima": 3
+        },
+
+        "informacao_critica_inventada": {
+          "nota_maxima": 2
+        }
+      }
+    }
+  },
+
+  "processos_especificos": {
+    "concorrencia": {
+      "processo": "108195 - Motivos de Cancelamento - Argumentação / Reversão - Nova Fibra",
+
+      "objetivo": "Compreender a proposta concorrente e trabalhar uma alternativa de retenção coerente.",
+
+      "sondagem": [
+        "Necessidades do cliente.",
+        "Expectativas.",
+        "Principais dores.",
+        "Empresa concorrente.",
+        "Preço.",
+        "Velocidade.",
+        "Benefícios.",
+        "Principal motivo da troca."
+      ],
+
+      "argumentacao": [
+        "Personalizar comunicação.",
+        "Analisar a proposta concorrente.",
+        "Destacar diferenciais relevantes.",
+        "Ser transparente.",
+        "Oferecer valor agregado quando aplicável.",
+        "Realizar comparação profissional e respeitosa."
+      ]
+    },
+
+    "concorrente_ja_instalado": {
+      "requisitos": [
+        "Confirmar instalação.",
+        "Identificar quando ocorreu.",
+        "Verificar contexto de até 7 dias quando aplicável.",
+        "Explicar direito de desistência junto à concorrência quando aplicável.",
+        "Apresentar alternativa de retenção compatível."
+      ],
+
+      "isencao_ultima_fatura": {
+        "regra": "No cenário aplicável de concorrência com instalação recente, poderá existir possibilidade de isenção da última fatura em aberto conforme critérios do processo.",
+        "automatica": false,
+        "limite": "Última fatura em aberto.",
+        "proibido": [
+          "Prometer antes de verificar aplicabilidade.",
+          "Tratar como benefício automático."
+        ]
+      }
+    },
+
+    "isencao_total_debitos": {
+      "processo": "17011 - Contestação - Isenção/Perdão de débitos",
+
+      "criterios": {
+        "tempo_base": "Mínimo de 6 meses ou 180 dias.",
+        "fatura_vencida": "Mais de 30 dias em atraso.",
+        "beneficio_anterior": "Não ter solicitado o benefício nos últimos 12 meses."
+      },
+
+      "regra": "Não presumir elegibilidade e não conceder automaticamente."
+    },
+
+    "reparo": {
+      "objetivo": "Tratar ou encaminhar a causa técnica antes de utilizar benefício comercial como principal estratégia de retenção.",
+
+      "sequencia": [
+        "Sondagem técnica.",
+        "Compreensão do impacto.",
+        "Tratamento ou encaminhamento técnico.",
+        "Contestação de período sem serviço quando aplicável.",
+        "Confirmação do encaminhamento.",
+        "Argumentação comercial de retenção."
+      ]
+    }
+  },
+
+  "cliente_virtual": {
+    "objetivo": "Representar exclusivamente o cliente durante a simulação.",
+
+    "separacao_avaliador": {
+      "regra": "O cliente virtual não deve receber o gabarito de avaliação nem orientar o operador sobre o processo.",
+      "cliente_nao_e": [
+        "Instrutor.",
+        "Avaliador.",
+        "Supervisor.",
+        "Coach.",
+        "Atendente Nio."
+      ]
+    },
+
+    "informacoes_visiveis": [
+      "Nome configurado no cenário.",
+      "Plano.",
+      "Velocidade.",
+      "Valor.",
+      "Tempo de base quando configurado.",
+      "Outros dados explicitamente marcados como visíveis."
+    ],
+
+    "informacoes_ocultas": [
+      "Motivo detalhado.",
+      "Causa raiz.",
+      "Oferta concorrente.",
+      "Preço concorrente.",
+      "Velocidade concorrente.",
+      "Benefícios concorrentes.",
+      "Data de instalação concorrente.",
+      "Histórico de problemas.",
+      "Necessidade real.",
+      "Objeções.",
+      "Condição emocional."
+    ],
+
+    "revelacao_progressiva": {
+      "regra": "Informações ocultas são reveladas de acordo com perguntas adequadas ou quando forem naturalmente necessárias à resposta do cliente.",
+
+      "proibido": [
+        "Entregar todas as informações espontaneamente.",
+        "Fazer a sondagem no lugar do operador.",
+        "Perguntar ao operador por que o próprio cliente tomou determinada decisão.",
+        "Lembrar o operador de uma pergunta que ele esqueceu.",
+        "Explicar como o operador deveria realizar retenção.",
+        "Dar feedback durante a chamada."
+      ]
+    },
+
+    "cancelamento_induzido_operador": {
+      "regra": "Quando o operador encaminhar ou incentivar claramente o cancelamento sem tentar compreender ou tratar a causa, o cliente não deve salvar o atendimento.",
+
+      "comportamento": [
+        "Responder como cliente.",
+        "Aceitar ou reafirmar a decisão quando coerente com o cenário.",
+        "Não criar nova oportunidade de sondagem.",
+        "Não fazer perguntas que indiquem o que o operador deveria ter investigado."
+      ]
+    }
+  },
+
+  "avaliador": {
+    "objetivo": "Auditar a transcrição e medir aderência aos quatro pilares do processo.",
+
+    "ordem": [
+      "Extrair fatos da conversa.",
+      "Separar fala do operador e fala do cliente.",
+      "Identificar comportamentos comprovados.",
+      "Classificar cada item como realizado, parcial, não realizado ou não aplicável.",
+      "Aplicar regras específicas do cenário.",
+      "Aplicar travas de nota.",
+      "Calcular os quatro pilares.",
+      "Calcular nota final.",
+      "Gerar pontos positivos.",
+      "Gerar pontos de melhoria."
+    ],
+
+    "regras": [
+      "Não inventar ações do operador.",
+      "Não transformar informação do cliente em mérito do operador.",
+      "Não elogiar tratamento técnico em cenário não técnico.",
+      "Não elogiar retenção quando não houve tentativa de retenção.",
+      "Não elogiar sondagem inexistente.",
+      "Não considerar cordialidade equivalente a empatia completa.",
+      "Não considerar cancelamento realizado como retenção.",
+      "Não considerar frase de encerramento isolada como checkout completo."
+    ],
+
+    "saida": {
+      "criterios": [
+        "abertura",
+        "sondagem",
+        "argumentacao",
+        "checkout"
+      ],
+
+      "cada_criterio": {
+        "campos": [
+          "score",
+          "description",
+          "evidence",
+          "completedItems",
+          "missingItems"
+        ]
+      },
+
+      "resultado_geral": [
+        "finalScore",
+        "positiveFeedback",
+        "improvementFeedback"
+      ]
+    }
+  },
+
+  "regras_criticas": {
+    "erros": {
+      "cancelamento_induzido": {
+        "descricao": "Operador encaminha ou incentiva cancelamento sem realizar tratamento adequado.",
+        "impacta": [
+          "sondagem",
+          "argumentacao"
+        ]
+      },
+
+      "acao_sistemica_inventada": {
+        "descricao": "Operador afirma ter realizado uma ação sistêmica que não possui sustentação na simulação.",
+        "impacta": [
+          "argumentacao",
+          "checkout"
+        ]
+      },
+
+      "informacao_inventada": {
+        "descricao": "Operador apresenta valor, prazo, benefício, condição ou processo sem sustentação.",
+        "impacta": [
+          "argumentacao",
+          "checkout"
+        ]
+      },
+
+      "oferta_antes_causa": {
+        "descricao": "Operador apresenta oferta antes de compreender adequadamente a causa.",
+        "impacta": [
+          "sondagem",
+          "argumentacao"
+        ]
+      },
+
+      "reparo_sem_tratamento": {
+        "descricao": "Operador tenta reter comercialmente sem tratar o problema técnico.",
+        "impacta": [
+          "argumentacao"
+        ]
+      },
+
+      "ip_incompleta": {
+        "descricao": "Operador não solicita ou confirma os dados obrigatórios de identificação definidos para a avaliação.",
+        "impacta": [
+          "abertura"
+        ]
+      }
+    }
+  },
+
+  "resultado_esperado": {
+    "cards": [
+      {
+        "id": "abertura",
+        "titulo": "Abertura"
+      },
+      {
+        "id": "sondagem",
+        "titulo": "Sondagem"
+      },
+      {
+        "id": "argumentacao",
+        "titulo": "Argumentação"
+      },
+      {
+        "id": "checkout",
+        "titulo": "Checkout"
+      }
+    ],
+
+    "feedback": [
+      "Pontos positivos",
+      "Pontos de melhoria"
+    ],
+
+    "principio": "A nota representa aderência ao processo demonstrada na conversa e não apenas o resultado final da retenção."
+  }
+}

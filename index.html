@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Simula AI - Plataforma de treinamento e simulação de atendimento para equipes de Customer Experience."
+    >
+
+    <meta name="theme-color" content="#071a2b">
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="assets/favicon.svg"
+>
+    <title>Simula AI | Simulador de Atendimento</title>
+
+    <!-- =========================================================
+         GOOGLE FONTS
+    ========================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- =========================================================
+         BOOTSTRAP ICONS
+    ========================================================== -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- =========================================================
+         CSS PRINCIPAL
+    ========================================================== -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         APP
+    ========================================================== -->
+
+    <div id="app">
+
+        <!-- =====================================================
+             TELA DE LOGIN
+        ====================================================== -->
+
+        <section
+            id="loginScreen"
+            class="login-screen"
+        >
+
+            <div class="login-wrapper">
+
+                <div class="login-card">
+
+<!-- MARCA / VOLTAR AO INÍCIO -->
+
+<a
+    href="#"
+    id="brandHomeLink"
+    class="brand-area brand-home-link"
+    aria-label="Voltar ao início"
+>
+
+    <div class="brand-icon">
+        <i class="bi bi-mic-fill"></i>
+    </div>
+
+    <div class="brand-text">
+
+        <div class="brand-name">
+            Simula AI
+        </div>
+
+        <div class="brand-subtitle">
+            Simulador de Atendimento
+        </div>
+
+    </div>
+
+</a>
+
+
+                    <!-- TÍTULO -->
+
+                    <div class="login-header">
+
+                        <h1 class="login-title">
+                            Entre na plataforma
+                        </h1>
+
+                        <p class="login-description">
+                            Treine, simule e desenvolva sua performance no atendimento.
+                        </p>
+
+                    </div>
+
+
+                    <!-- FORMULÁRIO -->
+
+                    <form
+                        id="loginForm"
+                        class="login-form"
+                    >
+
+                        <!-- NOME -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="userName"
+                                class="form-label"
+                            >
+                                Nome
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="bi bi-person input-icon"></i>
+
+                                <input
+                                    type="text"
+                                    id="userName"
+                                    class="form-control"
+                                    placeholder="Digite seu nome"
+                                    autocomplete="name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- E-MAIL -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="userEmail"
+                                class="form-label"
+                            >
+                                E-mail corporativo
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="bi bi-envelope input-icon"></i>
+
+                                <input
+                                    type="email"
+                                    id="userEmail"
+                                    class="form-control"
+                                    placeholder="seu.email@empresa.com"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BOTÃO -->
+
+                        <button
+                            type="submit"
+                            id="loginButton"
+                            class="btn btn-primary btn-lg"
+                        >
+
+                            <span>
+                                Entrar na plataforma
+                            </span>
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="login-footer-text">
+
+                        <i class="bi bi-shield-check"></i>
+
+                        Ambiente de treinamento e desenvolvimento
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             APLICAÇÃO PRINCIPAL
+        ====================================================== -->
+
+        <div
+            id="mainApp"
+            class="hidden"
+        >
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="main-header">
+
+                <div class="header-inner">
+
+                    <!-- MARCA -->
+
+                    <div class="brand-area">
+
+                        <div class="brand-icon">
+                            <i class="bi bi-mic-fill"></i>
+                        </div>
+
+                        <div class="brand-text">
+
+                            <div class="brand-name">
+                                Simula AI
+                            </div>
+
+                            <div class="brand-subtitle">
+                                Simulador de Atendimento
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LOGOS -->
+
+<div class="header-logos">
+
+    <img
+        src="assets/logo-concentrix.webp"
+        alt="Concentrix"
+        class="company-logo company-logo-concentrix"
+    >
+
+    <div class="logo-divider"></div>
+
+    <img
+        src="assets/logo-nio.jpg"
+        alt="Nio Fibra"
+        class="company-logo company-logo-nio"
+    >
+
+</div>
+
+                    <!-- USUÁRIO -->
+
+                    <div class="header-user">
+
+                        <div class="header-user-info">
+
+                            <span
+                                id="headerUserName"
+                                class="header-user-name"
+                            >
+                                Usuário
+                            </span>
+
+                            <span
+                                id="headerUserRole"
+                                class="header-user-role"
+                            >
+                                Operador
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="logoutButton"
+                            class="btn btn-outline btn-sm"
+                            title="Sair"
+                        >
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sair</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 PAINEL DO OPERADOR
+            ================================================== -->
+
+            <main
+                id="operatorPanel"
+                class="main-container"
+            >
+
+                <!-- CABEÇALHO -->
+
+                <section class="page-header">
+
+                    <div class="page-header-content">
+
+                        <div>
+
+                            <h1 class="page-title">
+                                Olá, <span id="operatorWelcomeName">Operador</span>!
+                            </h1>
+
+                            <p class="page-subtitle">
+                                Pronto para desenvolver sua performance?
+                            </p>
+
+                        </div>
+
+                        <div class="page-actions">
+
+                            <button
+                                type="button"
+                                id="operatorHistoryButton"
+                                class="btn btn-outline"
+                            >
+                                <i class="bi bi-clock-history"></i>
+                                Meu histórico
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ESTATÍSTICAS DO OPERADOR
+                ================================================== -->
+
+                <section class="stats-grid">
+
+                    <!-- SIMULAÇÕES -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Simulações realizadas
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-headset"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="operatorTotalSimulations"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-description">
+                            Total de simulações
+                        </div>
+
+                    </article>
+
+
+                    <!-- MÉDIA -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Minha média
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="operatorAverageScore"
+                            class="stat-value"
+                        >
+                            0,0
+                        </div>
+
+                        <div class="stat-description">
+                            Desempenho médio
+                        </div>
+
+                    </article>
+
+
+                    <!-- RETENÇÃO -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Retenção
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="operatorRetentionRate"
+                            class="stat-value"
+                        >
+                            0%
+                        </div>
+
+                        <div class="stat-description">
+                            Resultado das simulações
+                        </div>
+
+                    </article>
+
+
+                    <!-- CENÁRIOS -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Cenários disponíveis
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-grid-3x3-gap"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="availableScenariosCount"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-description">
+                            Cenários para treinamento
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- =================================================
+                     ESCOLHA DE CENÁRIO
+                ================================================== -->
+
+                <section class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Escolha um cenário
+                            </h2>
+
+                            <p class="section-card-description">
+                                Selecione uma situação para iniciar sua simulação.
+                            </p>
+
+                        </div>
+
+                        <span class="badge badge-aqua">
+                            Treinamento
+                        </span>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div
+                            id="scenariosContainer"
+                            class="scenarios-grid"
+                        >
+
+                            <!--
+                                Os cenários serão carregados
+                                pelo JavaScript.
+                            -->
+
+                            <div
+                                id="scenariosLoading"
+                                class="empty-state"
+                            >
+
+                                <div class="empty-state-icon">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </div>
+
+                                <h3 class="empty-state-title">
+                                    Carregando cenários...
+                                </h3>
+
+                                <p class="empty-state-text">
+                                    Aguarde enquanto os cenários de treinamento são carregados.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     DIFICULDADE
+                ================================================== -->
+
+                <section
+                    id="difficultySection"
+                    class="section-card hidden"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Escolha a dificuldade
+                            </h2>
+
+                            <p class="section-card-description">
+                                Defina o nível de desafio para esta simulação.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="difficulty-grid">
+
+                            <!-- FÁCIL -->
+
+                            <button
+                                type="button"
+                                class="difficulty-card"
+                                data-difficulty="facil"
+                            >
+
+                                <div class="difficulty-icon">
+                                    <i class="bi bi-emoji-smile"></i>
+                                </div>
+
+                                <div class="difficulty-name">
+                                    Fácil
+                                </div>
+
+                                <div class="difficulty-description">
+                                    Cliente colaborativo e objetivo.
+                                </div>
+
+                                <ul class="difficulty-list">
+
+                                    <li>
+                                        <i class="bi bi-check-circle"></i>
+                                        Objeções simples
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-check-circle"></i>
+                                        Maior abertura ao diálogo
+                                    </li>
+
+                                </ul>
+
+                            </button>
+
+
+                            <!-- MÉDIO -->
+
+                            <button
+                                type="button"
+                                class="difficulty-card"
+                                data-difficulty="medio"
+                            >
+
+                                <div class="difficulty-icon">
+                                    <i class="bi bi-emoji-neutral"></i>
+                                </div>
+
+                                <div class="difficulty-name">
+                                    Médio
+                                </div>
+
+                                <div class="difficulty-description">
+                                    Cliente com objeções e resistência.
+                                </div>
+
+                                <ul class="difficulty-list">
+
+                                    <li>
+                                        <i class="bi bi-check-circle"></i>
+                                        Sondagem necessária
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-check-circle"></i>
+                                        Mais de uma objeção
+                                    </li>
+
+                                </ul>
+
+                            </button>
+
+
+                            <!-- DIFÍCIL -->
+
+                            <button
+                                type="button"
+                                class="difficulty-card"
+                                data-difficulty="dificil"
+                            >
+
+                                <div class="difficulty-icon">
+                                    <i class="bi bi-emoji-angry"></i>
+                                </div>
+
+                                <div class="difficulty-name">
+                                    Difícil
+                                </div>
+
+                                <div class="difficulty-description">
+                                    Cliente resistente e emocionalmente desafiador.
+                                </div>
+
+                                <ul class="difficulty-list">
+
+                                    <li>
+                                        <i class="bi bi-check-circle"></i>
+                                        Alta resistência
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-check-circle"></i>
+                                        Necessidade de argumentação
+                                    </li>
+
+                                </ul>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     HISTÓRICO DO OPERADOR
+                ================================================== -->
+
+                <section
+                    id="operatorHistorySection"
+                    class="section-card hidden"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Meu histórico
+                            </h2>
+
+                            <p class="section-card-description">
+                                Consulte suas últimas simulações e resultados.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Data
+                                        </th>
+
+                                        <th>
+                                            Cenário
+                                        </th>
+
+                                        <th>
+                                            Dificuldade
+                                        </th>
+
+                                        <th>
+                                            Nota
+                                        </th>
+
+                                        <th>
+                                            Resultado
+                                        </th>
+
+                                        <th>
+                                            Ação
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="operatorHistoryTable">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="6"
+                                            class="empty-state"
+                                        >
+                                            Nenhuma simulação realizada ainda.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+
+            <!-- =================================================
+                 PAINEL DO ADMINISTRADOR
+            ================================================== -->
+
+            <main
+                id="adminPanel"
+                class="main-container hidden"
+            >
+
+                <!-- BANNER -->
+
+                <section class="admin-banner">
+
+                    <div class="admin-banner-icon">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+
+                    <div>
+
+                        <h1 class="admin-banner-title">
+                            Painel Administrativo
+                        </h1>
+
+                        <p class="admin-banner-description">
+                            Gerencie usuários, cenários, avaliações e dados da plataforma.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CABEÇALHO -->
+
+                <section class="page-header">
+
+                    <div class="page-header-content">
+
+                        <div>
+
+                            <h1 class="page-title">
+                                Visão geral
+                            </h1>
+
+                            <p class="page-subtitle">
+                                Acompanhe os principais dados do Simula AI.
+                            </p>
+
+                        </div>
+
+                        <div class="page-actions">
+
+                            <button
+                                type="button"
+                                id="adminRefreshButton"
+                                class="btn btn-outline"
+                            >
+
+                                <i class="bi bi-arrow-clockwise"></i>
+
+                                Atualizar
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ESTATÍSTICAS ADMIN
+                ================================================== -->
+
+                <section class="stats-grid">
+
+                    <!-- OPERADORES -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Operadores
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="adminTotalOperators"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-description">
+                            Usuários cadastrados
+                        </div>
+
+                    </article>
+
+
+                    <!-- SIMULAÇÕES -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Simulações
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-headset"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="adminTotalSimulations"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-description">
+                            Realizadas pela equipe
+                        </div>
+
+                    </article>
+
+
+                    <!-- MÉDIA -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Média geral
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-bar-chart-fill"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="adminAverageScore"
+                            class="stat-value"
+                        >
+                            0,0
+                        </div>
+
+                        <div class="stat-description">
+                            Desempenho da equipe
+                        </div>
+
+                    </article>
+
+
+                    <!-- CENÁRIOS -->
+
+                    <article class="stat-card">
+
+                        <div class="stat-header">
+
+                            <span class="stat-label">
+                                Cenários
+                            </span>
+
+                            <div class="stat-icon">
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="adminTotalScenarios"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-description">
+                            Cenários cadastrados
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- =================================================
+                     MENU ADMINISTRATIVO
+                ================================================== -->
+
+                <section class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Administração
+                            </h2>
+
+                            <p class="section-card-description">
+                                Acesse os recursos administrativos da plataforma.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="scenarios-grid">
+
+                            <!-- USUÁRIOS -->
+
+                            <button
+                                type="button"
+                                id="adminUsersButton"
+                                class="scenario-card"
+                            >
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Usuários e acessos
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Gerencie operadores e autorizações de acesso administrativo.
+                                </p>
+
+                                <span class="badge badge-blue">
+                                    Gerenciar
+                                </span>
+
+                            </button>
+
+
+                            <!-- CENÁRIOS -->
+
+                            <button
+                                type="button"
+                                id="adminScenariosButton"
+                                class="scenario-card"
+                            >
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-diagram-3-fill"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Cenários
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Crie, edite, ative ou desative cenários de treinamento.
+                                </p>
+
+                                <span class="badge badge-aqua">
+                                    Gerenciar
+                                </span>
+
+                            </button>
+
+
+                            <!-- BASE DE CONHECIMENTO -->
+
+                           <button
+    type="button"
+    class="admin-action-card"
+    id="adminKnowledgeButton"
+    onclick="
+        document.getElementById('adminUsersSection')?.classList.add('hidden');
+        document.getElementById('adminScenariosSection')?.classList.add('hidden');
+        document.getElementById('adminEvaluationsSection')?.classList.add('hidden');
+        document.getElementById('adminReportsSection')?.classList.add('hidden');
+        document.getElementById('adminKnowledgeSection')?.classList.remove('hidden');
+        document.getElementById('adminKnowledgeSection')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    "
+>
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-book-fill"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Base de conhecimento
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Organize regras, processos e conteúdos utilizados nas simulações.
+                                </p>
+
+                                <span class="badge badge-yellow">
+                                    Conteúdo
+                                </span>
+
+                            </button>
+
+
+                            <!-- AVALIAÇÕES -->
+
+                            <button
+                                type="button"
+                                id="adminEvaluationsButton"
+                                class="scenario-card"
+                            >
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-clipboard-data-fill"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Avaliações
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Consulte o desempenho dos operadores e os diagnósticos das simulações.
+                                </p>
+
+                                <span class="badge badge-orange">
+                                    Desempenho
+                                </span>
+
+                            </button>
+
+
+                            <!-- RELATÓRIOS -->
+
+                            <button
+                                type="button"
+                                id="adminReportsButton"
+                                class="scenario-card"
+                            >
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Relatórios
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Exporte os resultados e acompanhe os indicadores da equipe.
+                                </p>
+
+                                <span class="badge badge-green">
+                                    Exportar
+                                </span>
+
+                            </button>
+
+
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     USUÁRIOS
+                ================================================== -->
+
+                <section
+                    id="adminUsersSection"
+                    class="section-card hidden"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Gestão de usuários
+                            </h2>
+
+                            <p class="section-card-description">
+                                Controle os acessos e perfis da plataforma.
+                            </p>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            id="addUserButton"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="bi bi-person-plus-fill"></i>
+
+                            Adicionar usuário
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Nome
+                                        </th>
+
+                                        <th>
+                                            E-mail
+                                        </th>
+
+                                        <th>
+                                            Perfil
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th>
+                                            Ações
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="adminUsersTable">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="5"
+                                            class="empty-state"
+                                        >
+                                            Nenhum usuário cadastrado.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     GERENCIAMENTO DE CENÁRIOS
+                ================================================== -->
+
+                <section
+                    id="adminScenariosSection"
+                    class="section-card hidden"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Gestão de cenários
+                            </h2>
+
+                            <p class="section-card-description">
+                                Crie e gerencie as situações utilizadas pelos operadores.
+                            </p>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            id="addScenarioButton"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="bi bi-plus-lg"></i>
+
+                            Novo cenário
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Cenário
+                                        </th>
+
+                                        <th>
+                                            Categoria
+                                        </th>
+
+                                        <th>
+                                            Dificuldade
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th>
+                                            Ações
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="adminScenariosTable">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="5"
+                                            class="empty-state"
+                                        >
+                                            Nenhum cenário cadastrado.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+<!-- =================================================
+     BASE DE CONHECIMENTO
+================================================== -->
+
+<section
+    id="adminKnowledgeSection"
+    class="section-card hidden"
+>
+    <div class="section-card-header">
+
+        <div>
+            <h2 class="section-card-title">
+                Base de conhecimento
+            </h2>
+
+            <p class="section-card-description">
+                Conteúdos e processos de referência utilizados nas simulações.
+            </p>
+        </div>
+
+        <span class="badge badge-aqua">
+            Consulta
+        </span>
+
+    </div>
+
+    <div class="section-card-body">
+
+        <div class="scenarios-grid">
+
+            <article class="scenario-card">
+
+                <div class="scenario-card-icon">
+                    <i class="bi bi-router-fill"></i>
+                </div>
+
+                <h3 class="scenario-card-title">
+                    Reparo Técnico
+                </h3>
+
+                <p class="scenario-card-description">
+                    Diretrizes utilizadas nos cenários relacionados
+                    a falhas de conexão, histórico técnico e
+                    tratativas de reparo.
+                </p>
+
+                <span class="badge badge-blue">
+                    Processo
+                </span>
+
+            </article>
+
+
+            <article class="scenario-card">
+
+                <div class="scenario-card-icon">
+                    <i class="bi bi-arrow-left-right"></i>
+                </div>
+
+                <h3 class="scenario-card-title">
+                    Concorrência
+                </h3>
+
+                <p class="scenario-card-description">
+                    Conteúdos utilizados nos cenários de retenção
+                    envolvendo concorrentes e argumentação comercial.
+                </p>
+
+                <span class="badge badge-orange">
+                    Retenção
+                </span>
+
+            </article>
+
+
+            <article class="scenario-card">
+
+                <div class="scenario-card-icon">
+                    <i class="bi bi-clipboard-check-fill"></i>
+                </div>
+
+                <h3 class="scenario-card-title">
+                    Critérios de avaliação
+                </h3>
+
+                <p class="scenario-card-description">
+                    Avaliação estruturada nos pilares Abertura,
+                    Sondagem, Argumentação e Checkout.
+                </p>
+
+                <span class="badge badge-green">
+                    Avaliação
+                </span>
+
+            </article>
+
+        </div>
+
+        <div
+            style="
+                margin-top: 24px;
+                padding: 18px 20px;
+                border-radius: 12px;
+                background: #f5f8fc;
+                line-height: 1.6;
+            "
+        >
+            <strong>
+                <i class="bi bi-info-circle"></i>
+                Sobre esta base
+            </strong>
+
+            <p style="margin: 8px 0 0;">
+                A base de conhecimento orienta o comportamento
+                dos clientes simulados e os critérios utilizados
+                na avaliação dos atendimentos. Nesta versão,
+                os conteúdos são disponibilizados apenas para consulta.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+                <!-- =================================================
+                     AVALIAÇÕES
+                ================================================== -->
+
+                <section
+                    id="adminEvaluationsSection"
+                    class="section-card hidden"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Avaliações da equipe
+                            </h2>
+
+                            <p class="section-card-description">
+                                Consulte o desempenho dos operadores nas simulações.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Operador
+                                        </th>
+
+                                        <th>
+                                            Cenário
+                                        </th>
+
+                                        <th>
+                                            Data
+                                        </th>
+
+                                        <th>
+                                            Nota
+                                        </th>
+
+                                        <th>
+                                            Retenção
+                                        </th>
+
+                                        <th>
+                                            Ação
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="adminEvaluationsTable">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="6"
+                                            class="empty-state"
+                                        >
+                                            Nenhuma avaliação disponível.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     RELATÓRIOS
+                ================================================== -->
+
+                <section
+                    id="adminReportsSection"
+                    class="section-card hidden"
+                >
+
+                    <div class="section-card-header">
+
+                        <div>
+
+                            <h2 class="section-card-title">
+                                Relatórios
+                            </h2>
+
+                            <p class="section-card-description">
+                                Exporte os resultados das simulações da equipe.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-card-body">
+
+                        <div class="scenarios-grid">
+
+                            <button
+                                type="button"
+                                id="exportCsvButton"
+                                class="scenario-card"
+                            >
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-filetype-csv"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Exportar CSV
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Baixe os resultados das simulações em formato CSV.
+                                </p>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="exportExcelButton"
+                                class="scenario-card"
+                            >
+
+                                <div class="scenario-card-icon">
+                                    <i class="bi bi-file-earmark-excel-fill"></i>
+                                </div>
+
+                                <h3 class="scenario-card-title">
+                                    Exportar Excel
+                                </h3>
+
+                                <p class="scenario-card-description">
+                                    Gere uma planilha com os dados de desempenho.
+                                </p>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+
+            <!-- =================================================
+                 TELA DE SIMULAÇÃO
+            ================================================== -->
+
+            <main
+                id="simulationScreen"
+                class="main-container hidden"
+            >
+
+               <section class="simulation-topbar">
+
+    <div class="simulation-topbar-status">
+
+        <span class="simulation-live-dot"></span>
+
+        <div>
+            <span class="simulation-topbar-label">
+                Simulação
+            </span>
+
+            <strong>
+                Atendimento em andamento
+            </strong>
+        </div>
+
+    </div>
+
+    <div class="simulation-topbar-actions">
+
+        <button
+            type="button"
+            id="topFinishSimulationButton"
+            class="btn simulation-top-finish"
+        >
+            <i class="bi bi-check-circle"></i>
+            Finalizar simulação
+        </button>
+
+        <button
+            type="button"
+            id="exitSimulationButton"
+            class="btn simulation-top-exit"
+        >
+            <i class="bi bi-arrow-left"></i>
+            Sair
+        </button>
+
+    </div>
+
+</section>
+
+
+                <!-- =================================================
+                     ETAPA INICIAL DA SIMULAÇÃO
+                ================================================== -->
+
+           <!-- =================================================
+     ETAPA INICIAL DA SIMULAÇÃO
+================================================== -->
+
+<section
+    id="simulationStartPanel"
+    class="simulation-start-panel simulation-preparation"
+>
+
+    <div class="simulation-preparation-card">
+
+        <!-- TOPO -->
+
+        <div class="simulation-preparation-header">
+
+            <div class="simulation-preparation-heading">
+
+                <div class="simulation-preparation-icon">
+                    <i class="bi bi-headset"></i>
+                </div>
+
+                <div>
+
+                    <h2
+                        id="simulationStartTitle"
+                        class="simulation-preparation-title"
+                    >
+                        Cliente
+                    </h2>
+
+                    <div class="simulation-preparation-meta">
+
+                        <span
+                            id="simulationStartDescription"
+                            class="simulation-category-badge"
+                        >
+                            Atendimento
+                        </span>
+
+                        <span
+                            id="simulationStartDifficulty"
+                            class="simulation-difficulty-badge"
+                        >
+                            Médio
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="simulation-preparation-status">
+
+                <span class="simulation-ready-dot"></span>
+
+                <span>
+                    Pronto para iniciar
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTEÚDO -->
+
+        <div class="simulation-preparation-body">
+
+            <!-- DADOS -->
+
+            <div class="simulation-preparation-data">
+
+                <div class="simulation-data-card">
+
+                    <div class="simulation-data-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+
+                    <div>
+                        <span class="simulation-data-label">
+                            Cliente
+                        </span>
+
+                        <strong
+                            id="simulationStartCustomer"
+                            class="simulation-data-value"
+                        >
+                            —
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="simulation-data-card">
+
+                    <div class="simulation-data-icon">
+                        <i class="bi bi-wifi"></i>
+                    </div>
+
+                    <div>
+                        <span class="simulation-data-label">
+                            Plano
+                        </span>
+
+                        <strong
+                            id="simulationStartPlan"
+                            class="simulation-data-value"
+                        >
+                            —
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="simulation-data-card">
+
+                    <div class="simulation-data-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+
+                    <div>
+                        <span class="simulation-data-label">
+                            Valor
+                        </span>
+
+                        <strong
+                            id="simulationStartPrice"
+                            class="simulation-data-value"
+                        >
+                            —
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="simulation-data-card">
+
+                    <div class="simulation-data-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                    <div>
+                        <span class="simulation-data-label">
+                            Tempo de base
+                        </span>
+
+                        <strong
+                            id="simulationStartBaseTime"
+                            class="simulation-data-value"
+                        >
+                            —
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ORIENTAÇÃO -->
+
+            <aside class="simulation-preparation-guide">
+
+                <div class="simulation-guide-icon">
+                    <i class="bi bi-lightbulb"></i>
+                </div>
+
+                <div>
+
+                    <span class="simulation-guide-label">
+                        Antes de começar
+                    </span>
+
+                    <h3>
+                        Conduza o atendimento como uma chamada real.
+                    </h3>
+
+                    <p>
+                        O cliente apresentará a solicitação inicial.
+                        Utilize a sondagem para compreender o cenário
+                        antes de construir sua argumentação.
+                    </p>
+
+                    <div class="simulation-guide-tip">
+                        <i class="bi bi-shield-check"></i>
+
+                        <span>
+                            As informações ocultas deverão ser descobertas
+                            durante a conversa.
+                        </span>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- RODAPÉ -->
+
+        <div class="simulation-preparation-footer">
+
+            <div class="simulation-preparation-note">
+                <i class="bi bi-mic"></i>
+
+                <span>
+                    Verifique seu microfone antes de iniciar.
+                </span>
+            </div>
+
+            <button
+                type="button"
+                id="startSimulationButton"
+                class="btn btn-primary btn-lg simulation-start-button"
+            >
+                <i class="bi bi-play-fill"></i>
+
+                Iniciar simulação
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+                <section
+                    id="simulationConversationLayout"
+                    class="simulation-layout hidden"
+                >
+
+                    <!-- =============================================
+                         INFORMAÇÕES DO CLIENTE
+                    ============================================== -->
+
+                    <aside class="simulation-sidebar">
+
+                        <div class="customer-card">
+
+                            <div class="customer-card-header">
+
+                                <span class="customer-card-label">
+                                    Cliente
+                                </span>
+
+                                <div class="customer-avatar">
+                                    <i class="bi bi-person-fill"></i>
+                                </div>
+
+                            </div>
+
+                            <div
+                                id="customerName"
+                                class="customer-card-name"
+                            >
+                                Cliente
+                            </div>
+
+
+                            <div class="customer-card-body">
+
+                                <div class="customer-data">
+
+                                    <div class="customer-data-item">
+
+                                        <span class="customer-data-label">
+                                            Plano
+                                        </span>
+
+                                        <span
+                                            id="customerPlan"
+                                            class="customer-data-value"
+                                        >
+                                            —
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="customer-data-item">
+
+                                        <span class="customer-data-label">
+                                            Valor
+                                        </span>
+
+                                        <span
+                                            id="customerPrice"
+                                            class="customer-data-value"
+                                        >
+                                            —
+                                        </span>
+
+                                    </div>
+                                    <!-- TEMPO DE BASE -->
+
+                                    <div class="customer-data-item">
+
+                                        <span class="customer-data-label">
+                                            Tempo de base
+                                        </span>
+
+                                        <span
+                                            id="customerBaseTime"
+                                            class="customer-data-value"
+                                        >
+                                            —
+                                        </span>
+
+                                    </div>
+
+                                    <div class="customer-data-item">
+
+                                        <span class="customer-data-label">
+                                            Categoria
+                                        </span>
+
+                                        <span
+                                            id="customerCategory"
+                                            class="customer-data-value"
+                                        >
+                                            —
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="customer-data-item">
+
+                                        <span class="customer-data-label">
+                                            Dificuldade
+                                        </span>
+
+                                        <span
+                                            id="customerDifficulty"
+                                            class="customer-data-value"
+                                        >
+                                            —
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- INFO SIMULAÇÃO -->
+
+                        <div class="simulation-info">
+
+                            <h3 class="simulation-info-title">
+                                <i class="bi bi-lightbulb"></i>
+                                Atenção
+                            </h3>
+
+                            <p class="simulation-info-text">
+                                Conduza o atendimento normalmente. As informações
+                                necessárias devem ser descobertas durante a sondagem.
+                            </p>
+
+                        </div>
+
+                    </aside>
+
+
+                    <!-- =============================================
+                         CONVERSA
+                    ============================================== -->
+
+                    <section class="conversation-panel">
+
+                        <header class="conversation-header">
+
+                            <div class="conversation-customer">
+
+                                <div class="customer-avatar">
+                                    <i class="bi bi-person-fill"></i>
+                                </div>
+
+                                <div>
+
+                                    <div
+                                        id="conversationCustomerName"
+                                        class="conversation-customer-name"
+                                    >
+                                        Cliente
+                                    </div>
+
+                                    <div class="conversation-status">
+
+                                        <span class="status-dot"></span>
+
+                                        <span id="conversationStatus">
+                                            Aguardando atendimento
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="simulationTimer"
+                                class="conversation-timer"
+                            >
+                                00:00
+                            </div>
+
+                        </header>
+
+
+                        <!-- MENSAGENS -->
+
+                        <div
+                            id="messageList"
+                            class="conversation-body"
+                        >
+
+                            <div
+                                id="conversationEmpty"
+                                class="conversation-empty"
+                            >
+
+                                <div class="conversation-empty-icon">
+                                    <i class="bi bi-mic-fill"></i>
+                                </div>
+
+                                <h3 class="conversation-empty-title">
+                                    Simulação pronta
+                                </h3>
+
+                                <p class="conversation-empty-text">
+                                    Aguardando o início da simulação...
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CONTROLES -->
+
+                        <div class="simulation-controls">
+
+                            <div class="voice-controls">
+
+                                <button
+                                    type="button"
+                                    id="microphoneButton"
+                                    class="microphone-button"
+                                    aria-label="Iniciar atendimento por voz"
+                                >
+
+                                    <i class="bi bi-mic-fill"></i>
+
+                                </button>
+
+                                <div
+                                    id="voiceStatus"
+                                    class="voice-status"
+                                >
+                                    Aguardando o cliente iniciar...
+                                </div>
+
+                            </div>
+
+
+                            <div class="simulation-actions">
+
+                                <button
+                                    type="button"
+                                    id="muteButton"
+                                    class="btn btn-outline btn-sm"
+                                >
+
+                                    <i class="bi bi-volume-up"></i>
+
+                                    Áudio
+
+                                </button>
+
+                               <button
+    type="button"
+    id="finishSimulationButton"
+    class="simulation-hidden-finish"
+    aria-hidden="true"
+    tabindex="-1"
+>
+</button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </section>
+
+            </main>
+
+
+            <!-- =================================================
+                 RESULTADO DA SIMULAÇÃO
+            ================================================== -->
+<!-- =================================================
+     RESULTADO DA SIMULAÇÃO
+================================================== -->
+
+<main
+    id="resultScreen"
+    class="main-container hidden result-screen-compact"
+>
+    <!-- NAVEGAÇÃO DO RESULTADO -->
+
+    <div class="result-topbar">
+
+        <button
+            type="button"
+            id="backToDashboardButton"
+            class="btn result-back-button"
+        >
+            <i class="bi bi-arrow-left"></i>
+            Voltar ao painel
+        </button>
+
+    </div>
+    <!-- CABEÇALHO -->
+
+    <section class="result-header result-header-compact">
+
+        <div class="result-icon">
+            <i class="bi bi-trophy-fill"></i>
+        </div>
+
+        <div class="result-header-text">
+
+            <h1 class="result-title">
+                Simulação finalizada
+            </h1>
+
+            <p class="result-description">
+                Confira sua avaliação e os principais pontos do atendimento.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESUMO -->
+
+    <section class="result-summary-grid result-summary-compact">
+
+        <!-- NOTA -->
+
+        <article class="result-score-card">
+
+            <div class="result-summary-icon score-summary-icon">
+                <i class="bi bi-graph-up-arrow"></i>
+            </div>
+
+            <div class="result-score-content">
+
+                <div class="score-label">
+                    Nota geral
+                </div>
+
+                <div class="score-inline">
+
+                    <span
+                        id="finalScore"
+                        class="score-number"
+                    >
+                        0
+                    </span>
+
+                    <span class="score-total">
+                        /10
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- RESULTADO -->
+
+        <article
+            id="retentionOutcomeCard"
+            class="retention-outcome-card"
+        >
+
+            <div
+                id="retentionOutcomeIcon"
+                class="result-summary-icon retention-summary-icon"
+            >
+                <i class="bi bi-dash"></i>
+            </div>
+
+            <div class="result-outcome-content">
+
+                <div class="retention-outcome-label">
+                    Resultado
+                </div>
+
+                <div
+                    id="retentionOutcome"
+                    class="retention-outcome-value"
+                >
+                    —
+                </div>
+
+                <div class="retention-outcome-description">
+                    Resultado final da negociação
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- CRITÉRIOS -->
+
+    <section class="evaluation-grid evaluation-grid-compact">
+
+        <!-- ABERTURA -->
+
+        <article class="evaluation-card">
+
+            <div class="evaluation-header">
+
+                <h3 class="evaluation-title">
+                    Abertura
+                </h3>
+
+                <span
+                    id="scoreAbertura"
+                    class="evaluation-score"
+                >
+                    0/10
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div
+                    id="progressAbertura"
+                    class="progress-bar"
+                    style="width: 0%"
+                ></div>
+            </div>
+
+            <p
+                id="descriptionAbertura"
+                class="evaluation-description"
+            >
+                —
+            </p>
+
+        </article>
+
+
+        <!-- SONDAGEM -->
+
+        <article class="evaluation-card">
+
+            <div class="evaluation-header">
+
+                <h3 class="evaluation-title">
+                    Sondagem
+                </h3>
+
+                <span
+                    id="scoreSondagem"
+                    class="evaluation-score"
+                >
+                    0/10
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div
+                    id="progressSondagem"
+                    class="progress-bar"
+                    style="width: 0%"
+                ></div>
+            </div>
+
+            <p
+                id="descriptionSondagem"
+                class="evaluation-description"
+            >
+                —
+            </p>
+
+        </article>
+
+
+        <!-- ARGUMENTAÇÃO -->
+
+        <article class="evaluation-card">
+
+            <div class="evaluation-header">
+
+                <h3 class="evaluation-title">
+                    Argumentação
+                </h3>
+
+                <span
+                    id="scoreArgumentacao"
+                    class="evaluation-score"
+                >
+                    0/10
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div
+                    id="progressArgumentacao"
+                    class="progress-bar"
+                    style="width: 0%"
+                ></div>
+            </div>
+
+            <p
+                id="descriptionArgumentacao"
+                class="evaluation-description"
+            >
+                —
+            </p>
+
+        </article>
+
+
+        <!-- CHECKOUT -->
+
+        <article class="evaluation-card">
+
+            <div class="evaluation-header">
+
+                <h3 class="evaluation-title">
+                    Checkout
+                </h3>
+
+                <span
+                    id="scoreCheckout"
+                    class="evaluation-score"
+                >
+                    0/10
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div
+                    id="progressCheckout"
+                    class="progress-bar"
+                    style="width: 0%"
+                ></div>
+            </div>
+
+            <p
+                id="descriptionCheckout"
+                class="evaluation-description"
+            >
+                —
+            </p>
+
+        </article>
+
+    </section>
+
+
+    <!-- FEEDBACK -->
+
+    <section class="feedback-grid feedback-grid-compact">
+
+        <article class="feedback-card positive">
+
+            <h2 class="feedback-title">
+                <i class="bi bi-check-circle-fill"></i>
+                Pontos positivos
+            </h2>
+
+            <ul
+                id="positiveFeedback"
+                class="feedback-list"
+            >
+                <li>
+                    A avaliação será exibida após a simulação.
+                </li>
+            </ul>
+
+        </article>
+
+
+        <article class="feedback-card improvement">
+
+            <h2 class="feedback-title">
+                <i class="bi bi-lightbulb-fill"></i>
+                Pontos de melhoria
+            </h2>
+
+            <ul
+                id="improvementFeedback"
+                class="feedback-list"
+            >
+                <li>
+                    Os pontos de melhoria serão apresentados aqui.
+                </li>
+            </ul>
+
+        </article>
+
+    </section>
+
+
+
+
+</main>
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+            <footer class="main-footer">
+
+                <div>
+
+                    Desenvolvido por Maira Vanessa
+                    <span>|</span>
+                    Training Analyst II
+                    <span>|</span>
+                    <a href="mailto:maira.pinto@concentrix.com">
+                        maira.pinto@concentrix.com
+                    </a>
+
+                </div>
+
+            </footer>
+
+        </div>
+
+
+        <!-- =====================================================
+             MODAL
+        ====================================================== -->
+
+        <div
+            id="modalBackdrop"
+            class="modal-backdrop hidden"
+        >
+
+            <div
+                id="modalContainer"
+                class="modal-container"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <div class="modal-header">
+
+                    <h2
+                        id="modalTitle"
+                        class="modal-title"
+                    >
+                        Confirmação
+                    </h2>
+
+                    <button
+                        type="button"
+                        id="modalCloseButton"
+                        class="modal-close"
+                        aria-label="Fechar"
+                    >
+
+                        <i class="bi bi-x-lg"></i>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="modalBody"
+                    class="modal-body"
+                >
+
+                    <!-- Conteúdo dinâmico -->
+
+                </div>
+
+
+                <div
+                    id="modalFooter"
+                    class="modal-footer"
+                >
+
+                    <button
+                        type="button"
+                        id="modalCancelButton"
+                        class="btn btn-outline"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="button"
+                        id="modalConfirmButton"
+                        class="btn btn-primary"
+                    >
+                        Confirmar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TOASTS
+        ====================================================== -->
+
+        <div
+            id="toastContainer"
+            class="toast-container"
+            aria-live="polite"
+            aria-atomic="true"
+        ></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <!--
+        Os arquivos abaixo serão criados nos próximos passos.
+        Por enquanto, é normal aparecer erro 404 no console
+        para os arquivos que ainda não existem.
+    -->
+
+    <script src="js/scenarios.js"></script>
+    <script src="js/speech.js"></script>
+    <script src="js/evaluation.js"></script>
+    <script src="js/simulation.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
+<!-- =========================================================
+     MODAL — RESULTADO DA NEGOCIAÇÃO
+========================================================= -->
+<div
+    id="outcomeModal"
+    class="outcome-modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="outcomeModalTitle"
+>
+    <div class="outcome-modal-backdrop"></div>
+
+    <div class="outcome-modal-card">
+
+        <div class="outcome-modal-icon">
+            <i class="bi bi-check2-circle"></i>
+        </div>
+
+        <h2 id="outcomeModalTitle">
+            Como a negociação foi encerrada?
+        </h2>
+
+        <p>
+            Selecione o resultado final do atendimento.
+        </p>
+
+        <div class="outcome-modal-actions">
+
+            <button
+                type="button"
+                id="outcomeRetainedButton"
+                class="outcome-option retained"
+            >
+                <i class="bi bi-check-circle"></i>
+
+                <span>
+                    <strong>Cliente retido</strong>
+                    <small>O cliente permaneceu com a Nio Fibra</small>
+                </span>
+            </button>
+
+            <button
+                type="button"
+                id="outcomeCancelledButton"
+                class="outcome-option cancelled"
+            >
+                <i class="bi bi-x-circle"></i>
+
+                <span>
+                    <strong>Cliente cancelado</strong>
+                    <small>O cancelamento foi concluído</small>
+                </span>
+            </button>
+
+        </div>
+
+        <button
+            type="button"
+            id="outcomeModalBackButton"
+            class="outcome-modal-back"
+        >
+            Voltar para a simulação
+        </button>
+
+    </div>
+</div>
+</body>
+</html>
