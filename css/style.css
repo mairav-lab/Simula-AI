@@ -8423,3 +8423,12 @@ body:has(#simulationScreen:not(.hidden)) {
 #resultScreen .result-summary-grid {
     margin-top: 0 !important;
 }
+/* ============================================================
+   AJUSTE GLOBAL — ESCALA DESKTOP
+   ============================================================ */
+
+@media (min-width: 1100px) {
+    html {
+        zoom: 0.85;
+    }
+}
