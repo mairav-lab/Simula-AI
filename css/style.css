@@ -8427,8 +8427,8 @@ body:has(#simulationScreen:not(.hidden)) {
    AJUSTE GLOBAL — ESCALA DESKTOP
    ============================================================ */
 
-@media (min-width: 1110px) {
+@media (min-width: 1100px) {
     html {
-        zoom: 0.95;
+        zoom: 0.99;
     }
 }
