@@ -8429,6 +8429,6 @@ body:has(#simulationScreen:not(.hidden)) {
 
 @media (min-width: 1100px) {
     html {
-        zoom: 0.90;
+        zoom: 0.95;
     }
 }
